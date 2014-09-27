@@ -16,22 +16,22 @@ public class Wavy : MonoBehaviour {
 	// f for frequency
 	// p for phase
 	// A for amplitude
-	private float w1fx = 0.4f;
-	private float w1fy = 0.4f;
-	private float w1px = 0.4f;
-	private float w1py = 0.4f;
-	private float w1Ax = 0.4f;
-	private float w1Ay = 0.4f;
+	private float w1fx = 1.4f;
+	private float w1fy = 1.4f;
+	private float w1px = 0.2f;
+	private float w1py = 0.2f;
+	private float w1Ax = 0.2f;
+	private float w1Ay = 0.2f;
 
-	private float w2fx = 0.2f;
-	private float w2fy = 0.2f;
+	private float w2fx = 1.2f;
+	private float w2fy = 1.2f;
 	private float w2px = 0.2f;
 	private float w2py = 0.2f;
 	private float w2Ax = 0.2f;
 	private float w2Ay = 0.2f;
 
-	private float w3fx = 0.1f;
-	private float w3fy = 0.1f;
+	private float w3fx = 1.1f;
+	private float w3fy = 1.1f;
 	private float w3px = 0.1f;
 	private float w3py = 0.1f;
 	private float w3Ax = 0.1f;
