@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class PlayerBehavior : MonoBehaviour {
-	public float velocityX = 1f;
+	public float velocityX = 0.5f;
 	public float velocityY = 0f;
-	float velocityXLimit = 3f;
-	float velocityYLimit = 5f;
+	float velocityXLimit = 5f;
+	float velocityYLimit = 10f;
 	float accelerationX = 0.1f;
-	float accelerationY = 3f;
+	float accelerationY = 0.5f;
 	int damage_level;
 
 	// Use this for initialization
@@ -27,11 +27,27 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 
 	void GetInput() {
-		if (Input.GetButton("Whirlpool"))
+		//WHIRLPOOL INPUT
+		if (Input.GetKey(KeyCode.A))
 		{
-			velocityX = 0;
+			Whirlpool();
 		}
 
+		//WAVE INPUT
+		if (Input.GetKeyDown(KeyCode.D))
+		{
+			Wave();
+		}
+		
+	}
+
+	void Whirlpool() {
+		velocityX = 0;
+	}
+
+	void Wave() {
+		velocityY = velocityYLimit;
+		velocityX = velocityXLimit;	
 	}
 
 	void Move() {
@@ -40,5 +56,8 @@ public class PlayerBehavior : MonoBehaviour {
 
 		//ACCELTERATE
 		if(velocityX < velocityXLimit) velocityX += accelerationX;
+
+		//DECELERATE
+		if(velocityY > 0) velocityY -= accelerationY;
 	}
 }
