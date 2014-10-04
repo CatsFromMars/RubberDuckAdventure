@@ -2,7 +2,11 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WaveRecycler.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="Assets\Scripts\WaveRecycler.cs" Line="45" Column="27" />
+=======
+      <File FileName="Assets\Scripts\PlayerBehavior.cs" Line="33" Column="4" />
+>>>>>>> 87966474fc0978320f9a05299514487877a2b521
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
