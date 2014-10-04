@@ -12,7 +12,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-	
+
 	}
 	
 	// Update is called once per frame
@@ -47,7 +47,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 	void Wave() {
 		velocityY = velocityYLimit;
-		velocityX = velocityXLimit;	
+		velocityX = velocityXLimit;
 	}
 
 	void Move() {
@@ -55,9 +55,10 @@ public class PlayerBehavior : MonoBehaviour {
 		transform.Translate(Time.deltaTime*velocityX, Time.deltaTime*velocityY, 0);
 
 		//ACCELTERATE
-		if(velocityX < velocityXLimit) velocityX += accelerationX;
+		if (velocityX < velocityXLimit) velocityX += accelerationX;
 
 		//DECELERATE
-		if(velocityY > 0) velocityY -= accelerationY;
+		if (velocityY > 0) velocityY -= accelerationY;
 	}
+
 }
