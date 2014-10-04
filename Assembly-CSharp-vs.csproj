@@ -46,8 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\GameOverMenu.cs" />
      <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
      <Compile Include="Assets\Scripts\SpikeTurtle.cs" />
+     <Compile Include="Assets\Scripts\StartMenu.cs" />
      <Compile Include="Assets\Scripts\WaveRecycler.cs" />
      <Compile Include="Assets\Scripts\Wavy.cs" />
   </ItemGroup>
