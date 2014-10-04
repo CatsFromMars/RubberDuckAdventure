@@ -8,6 +8,7 @@ public class WaveRecycler : MonoBehaviour {
 	float lastDuckXPos;
 	
 	const float RECYCLE_DISP = 25.0f;
+	float WAVE_WIDTH;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +19,9 @@ public class WaveRecycler : MonoBehaviour {
 		};
 
 		lastDuckXPos = get_duck_pos();
+
+		MeshFilter waveMesh = (MeshFilter) GameObject.Find("PlaneWave1").GetComponent("MeshFilter");
+		WAVE_WIDTH = waveMesh.collider.bounds.size.x;
 
 	}
 	
@@ -30,13 +34,12 @@ public class WaveRecycler : MonoBehaviour {
 
 	// Get duck X position
 	private float get_duck_pos() {
-		GameObject duck = GameObject.Find("Duck");
-		return duck.transform.position.x;
+		return GameObject.Find("Duck").transform.position.x;
 	}
 	
 	void recycle_waves() {
 		Debug.Log("Recycling waves...");
-		waves[nextWavesToRecycle].transform.Translate(75, 0, 0);
+		waves[nextWavesToRecycle].transform.Translate(WAVE_WIDTH * 3, 0, 0);
 		
 		nextWavesToRecycle++;
 		nextWavesToRecycle %= 3;
