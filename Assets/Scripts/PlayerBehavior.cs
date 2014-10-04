@@ -8,17 +8,32 @@ public class PlayerBehavior : MonoBehaviour {
 	float velocityYLimit = 10f;
 	float accelerationX = 0.1f;
 	float accelerationY = 0.5f;
-	int damage_level;
-
+	public int damage_level = 0;
+	public string tag = "Player";
+	public Transform playerBase;
+	public Texture duckBase;
+	public Texture DuckDamageLevel2;
+	public Texture DuckDamageLevel3;
+	public Texture[] duckHealth;
+	
+	void OnTriggerEnter(Collider other) {
+		if (other.gameObject.tag == "Enemy") {
+			damage_level += 1;
+			if (damage_level == 3) {
+				Debug.Log("Player should be dead by now.");
+			}
+			playerBase.renderer.material.mainTexture = duckHealth[damage_level];
+			Debug.Log("FUNCTION CALLED");
+		}
+	}
 	// Use this for initialization
 	void Awake () {
-	
+		duckHealth = new Texture[3] {duckBase, DuckDamageLevel2, DuckDamageLevel3};
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Move();
-	
 	}
 
 	void FixedUpdate() {
@@ -47,7 +62,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 	void Wave() {
 		velocityY = velocityYLimit;
-		velocityX = velocityXLimit;	
+		velocityX = velocityXLimit;
 	}
 
 	void Move() {
