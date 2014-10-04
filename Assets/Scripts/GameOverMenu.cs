@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StartMenu : MonoBehaviour {
+public class GameOverMenu : MonoBehaviour {
 	private int width, height;
 	private int boxWidth, boxHeight;
 
@@ -20,8 +20,11 @@ public class StartMenu : MonoBehaviour {
 		if (visible) {
 			GUILayout.BeginArea (new Rect((width - boxWidth) / 2, (height + boxHeight) / 2, boxWidth, boxHeight));
 			GUILayout.BeginVertical ();
-			if (GUILayout.Button ("Play")) {
+			if (GUILayout.Button ("Continue")) {
 				Application.LoadLevel("Test");
+			}
+			if (GUILayout.Button ("Main Menu")) {
+				Application.LoadLevel ("Start_Menu");
 			}
 			if (GUILayout.Button ("Quit")) {
 				Application.Quit();
