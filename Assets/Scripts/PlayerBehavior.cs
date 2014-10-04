@@ -9,7 +9,7 @@ public class PlayerBehavior : MonoBehaviour {
 	float accelerationX = 0.1f;
 	float accelerationY = 0.5f;
 	public int damage_level = 0;
-	public string tag = "Player";
+	public string ID = "Player";
 	public Transform playerBase;
 	public Texture duckBase;
 	public Texture DuckDamageLevel2;
@@ -28,11 +28,7 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Awake () {
-<<<<<<< HEAD
-
-=======
 		duckHealth = new Texture[3] {duckBase, DuckDamageLevel2, DuckDamageLevel3};
->>>>>>> bb518e95c4a63362e61212ee19417e5c84f549b3
 	}
 	
 	// Update is called once per frame
