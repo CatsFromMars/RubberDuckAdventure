@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\HazardGenerator.cs" />
      <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
      <Compile Include="Assets\Scripts\SpikeTurtle.cs" />
+     <Compile Include="Assets\Scripts\SpriteAnimator.cs" />
      <Compile Include="Assets\Scripts\StartMenu.cs" />
      <Compile Include="Assets\Scripts\WaveRecycler.cs" />
      <Compile Include="Assets\Scripts\Wavy.cs" />

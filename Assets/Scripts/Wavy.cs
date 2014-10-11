@@ -9,9 +9,9 @@ public class Wavy : MonoBehaviour {
 	public GameObject wave2;
 	public GameObject wave3;
 
-	private Vector3 w1;
-	private Vector3 w2; 
-	private Vector3 w3;
+	public Vector3 w1;
+	public Vector3 w2; 
+	public Vector3 w3;
 
 	// f for frequency
 	// p for phase
@@ -48,6 +48,7 @@ public class Wavy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		time += Time.deltaTime;
 
 		// wave 1
