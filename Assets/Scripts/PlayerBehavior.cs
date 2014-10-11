@@ -19,11 +19,12 @@ public class PlayerBehavior : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "Enemy") {
 			damage_level += 1;
-			if (damage_level == 3) {
+			if (damage_level >= 3) {
 				Debug.Log("Player should be dead by now.");
+				damage_level %= 3;	// TODO: Get rid of this
 			}
 			playerBase.renderer.material.mainTexture = duckHealth[damage_level];
-			Debug.Log("FUNCTION CALLED");
+//			Debug.Log("FUNCTION CALLED");
 		}
 	}
 	// Use this for initialization
@@ -38,7 +39,6 @@ public class PlayerBehavior : MonoBehaviour {
 
 	void FixedUpdate() {
 		GetInput();
-
 	}
 
 	void GetInput() {
