@@ -7,11 +7,11 @@ public class WaveRecycler : MonoBehaviour {
 	
 	float lastDuckXPos;
 	
-	const float RECYCLE_DISP = 25.0f;
+//	const float RECYCLE_DISP = 25.0f;
 	float WAVE_WIDTH;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		waves = new GameObject[] {
 			GameObject.Find("WaveCollection0"),
 			GameObject.Find("WaveCollection1"),
@@ -26,8 +26,8 @@ public class WaveRecycler : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (get_duck_pos() >= lastDuckXPos + RECYCLE_DISP) {
+	void Update() {
+		if (get_duck_pos() >= lastDuckXPos + WAVE_WIDTH) {
 			recycle_waves();
 		}
 	}
@@ -38,13 +38,13 @@ public class WaveRecycler : MonoBehaviour {
 	}
 	
 	void recycle_waves() {
-		Debug.Log("Recycling waves...");
+//		Debug.Log("Recycling waves...");
 		waves[nextWavesToRecycle].transform.Translate(WAVE_WIDTH * 3, 0, 0);
 		
 		nextWavesToRecycle++;
 		nextWavesToRecycle %= 3;
 		
-		lastDuckXPos = get_duck_pos();
+		lastDuckXPos += WAVE_WIDTH;
 		
 	}
 
