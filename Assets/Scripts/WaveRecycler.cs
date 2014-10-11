@@ -3,6 +3,10 @@ using System.Collections;
 
 public class WaveRecycler : MonoBehaviour {
 	GameObject[] waves;
+	Wavy waveController1;
+	Wavy waveController2;
+	Wavy waveController3;
+
 	int nextWavesToRecycle = 0;
 	
 	float lastDuckXPos;
@@ -11,12 +15,17 @@ public class WaveRecycler : MonoBehaviour {
 	float WAVE_WIDTH;
 
 	// Use this for initialization
+
 	void Start() {
 		waves = new GameObject[] {
 			GameObject.Find("WaveCollection0"),
 			GameObject.Find("WaveCollection1"),
 			GameObject.Find("WaveCollection2"),
 		};
+
+		waveController1 = waves[0].GetComponent<Wavy>();
+		waveController2 = waves[1].GetComponent<Wavy>();
+		waveController3 = waves[2].GetComponent<Wavy>();
 
 		lastDuckXPos = get_duck_pos();
 

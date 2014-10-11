@@ -15,6 +15,11 @@ public class PlayerBehavior : MonoBehaviour {
 	public Texture DuckDamageLevel2;
 	public Texture DuckDamageLevel3;
 	public Texture[] duckHealth;
+	Quaternion spawnRotation;
+
+	//PREFABS
+	public Transform whirlpool;
+	Transform waterAction;
 	
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "Enemy") {
@@ -30,6 +35,7 @@ public class PlayerBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		duckHealth = new Texture[3] {duckBase, DuckDamageLevel2, DuckDamageLevel3};
+		spawnRotation = Quaternion.Euler(-90f, 0, 0);
 	}
 	
 	// Update is called once per frame
@@ -47,6 +53,10 @@ public class PlayerBehavior : MonoBehaviour {
 		{
 			Whirlpool();
 		}
+		if (Input.GetKeyUp(KeyCode.A))
+		{
+			Destroy(waterAction.gameObject);
+		}
 
 		//WAVE INPUT
 		if (Input.GetKeyDown(KeyCode.D))
@@ -58,6 +68,11 @@ public class PlayerBehavior : MonoBehaviour {
 
 	void Whirlpool() {
 		velocityX = 0;
+		if(waterAction == null)
+		{
+			Vector3 spawnPos = new Vector3(transform.position.x, -4f, transform.position.z);
+			waterAction = Instantiate(whirlpool,spawnPos,spawnRotation) as Transform;
+		}
 	}
 
 	void Wave() {
