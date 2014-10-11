@@ -7,9 +7,11 @@ public class HazardGenerator : MonoBehaviour {
     // Yay magic numbers!
     private Vector3 BASE_COORDS = new Vector3(0, -2.6f, 0.25f);
     private Quaternion BASE_ROTATION = new Quaternion(-0.7f, 0, 0, 0.7f);
+
     public Transform SpikedTurtle;
+
     private List<GameObject> activeHazards = new List<GameObject>();
-    private const int MAX_HAZARDS = 10;
+    private const int MAX_HAZARDS = 5;
 
     // Use this for initialization
     void Start() {

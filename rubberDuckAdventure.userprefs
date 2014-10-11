@@ -1,17 +1,8 @@
 ﻿<Properties>
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HazardGenerator.cs">
     <Files>
-      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="50" Column="98" />
-=======
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerBehavior.cs">
-    <Files>
-      <File FileName="Assets\Scripts\PlayerBehavior.cs" Line="74" Column="76" />
-      <File FileName="Assets\Scripts\SpriteAnimator.cs" Line="7" Column="10" />
-      <File FileName="Assets\Scripts\Wavy.cs" Line="14" Column="8" />
->>>>>>> 0c1b7a6e5c06c838e84019927bc7bdac5cf6230f
+      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="12" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
