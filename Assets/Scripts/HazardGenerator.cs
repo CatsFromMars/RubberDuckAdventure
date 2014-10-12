@@ -10,12 +10,19 @@ public class HazardGenerator : MonoBehaviour {
 
     public Transform SpikedTurtle;
 
+    private GameObject duck;
+
     private List<GameObject> activeHazards = new List<GameObject>();
     private const int MAX_HAZARDS = 5;
+    
+    private const int MIN_SPAWN_DIST = 25;
+    private const int MAX_SPAWN_DIST = 75;
+
+    private const int CLEANUP_DIST = 5;
 
     // Use this for initialization
     void Start() {
-
+        duck = GameObject.Find("Duck");
     }
 
     // Spawn an enemy. Arrrh!
@@ -32,7 +39,7 @@ public class HazardGenerator : MonoBehaviour {
         int i;
 
         for (i=0; i<10 && invalid; i++) {
-            distFromDuck = UnityEngine.Random.Range(30, 70);
+            distFromDuck = UnityEngine.Random.Range(MIN_SPAWN_DIST, MAX_SPAWN_DIST);
 
             newEnemyTransform = (Transform) Instantiate(
                     SpikedTurtle,
@@ -90,12 +97,15 @@ public class HazardGenerator : MonoBehaviour {
     
     // Get duck X position
     private float get_duck_pos() {
-        return GameObject.Find("Duck").transform.position.x;
+        return duck.transform.position.x;
     }
 
     // Update is called once per frame
     void Update() {
 //        Debug.Log(String.Format("Count is {0}", activeHazards.Count));
+        
+        // If this doesn't hold, then something broke somewhere...
+        System.Diagnostics.Debug.Assert(activeHazards.Count <= MAX_HAZARDS);
 
         if (activeHazards.Count < MAX_HAZARDS) {
             if (UnityEngine.Random.Range(0, 100) < 50) {
@@ -103,7 +113,7 @@ public class HazardGenerator : MonoBehaviour {
             }
         }
         else if (activeHazards.Count == MAX_HAZARDS) {
-            if (activeHazards[0].transform.position.x < get_duck_pos() - 10) {
+            if (activeHazards[0].transform.position.x < get_duck_pos() - CLEANUP_DIST) {
                 clean_up_enemy();
             }
         }
