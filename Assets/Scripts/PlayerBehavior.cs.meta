@@ -1,12 +1,8 @@
 fileFormatVersion: 2
-guid: 4bebb725d6e0d894bb4e4845811dbbcb
+guid: 1f2de920a9521eb418a0e48e773ff124
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - playerBase: {instanceID: 0}
-  - duckBase: {fileID: 2800000, guid: 9338cf645c842264db50bcc9319da75b, type: 3}
-  - DuckDamageLevel2: {fileID: 2800000, guid: 8f22d7e52abed134ca9f4117805dc8f4, type: 3}
-  - DuckDamageLevel3: {fileID: 2800000, guid: 2f14b378fe3c84048872def760e6ba82, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

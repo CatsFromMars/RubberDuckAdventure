@@ -2,93 +2,105 @@
 using System.Collections;
 
 public class PlayerBehavior : MonoBehaviour {
-	public float velocityX = 0.5f;
-	public float velocityY = 0f;
-	float velocityXLimit = 5f;
-	float velocityYLimit = 10f;
-	float accelerationX = 0.1f;
-	float accelerationY = 0.5f;
+	
+    /* --- PRE SETUP --- */
+    //duck vars
+    public Vector2 curVel;
+    public Vector2 toVel;
+    private float minY;
+    public float acc;
+    public float gravity;
+    private bool goingUp = false;
+    private bool onWater = true;
+
+    //water control vars
+    public Vector2 idleVel; //(0.5,0)
+    public Vector2 whirlpoolVel;
+    public Vector2 splashVel;
+    public Vector2 waveVel;
+    //water graphics:
+    public Transform whirlpool;
+    public Transform splash;
+    public Transform wave;
+
+    //damage vars
 	public int damage_level = 0;
 	public string ID = "Player";
-	public Transform playerBase;
+    public Transform playerBase;
 	public Texture duckBase;
 	public Texture DuckDamageLevel2;
 	public Texture DuckDamageLevel3;
-	public Texture[] duckHealth;
-	Quaternion spawnRotation;
+    public Texture[] duckHealth;
+    public ParticleSystem damageParticles;
 
-	//PREFABS
-	public Transform whirlpool;
-	Transform waterAction;
-	
-	void OnTriggerEnter(Collider other) {
-		if (other.gameObject.tag == "Enemy") {
-			damage_level += 1;
-			if (damage_level >= 3) {
-				Debug.Log("Player should be dead by now.");
-				damage_level %= 3;	// TODO: Get rid of this
-			}
-			playerBase.renderer.material.mainTexture = duckHealth[damage_level];
-//			Debug.Log("FUNCTION CALLED");
-		}
-	}
-	// Use this for initialization
-	void Awake () {
+	/* ----- SETUP ----- */
+    void Awake () {
 		duckHealth = new Texture[3] {duckBase, DuckDamageLevel2, DuckDamageLevel3};
-		spawnRotation = Quaternion.Euler(-90f, 0, 0);
+        minY = transform.position.y;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		Move();
-	}
-
-	void FixedUpdate() {
-		GetInput();
-	}
-
-	void GetInput() {
-		//WHIRLPOOL INPUT
-		if (Input.GetKey(KeyCode.A))
-		{
-			Whirlpool();
-		}
-		if (Input.GetKeyUp(KeyCode.A))
-		{
-			Destroy(waterAction.gameObject);
-		}
-
-		//WAVE INPUT
-		if (Input.GetKeyDown(KeyCode.D))
-		{
-			Wave();
-		}
+	/* --- MAIN LOOP --- */
+    void Update () {
 		
+        /* --- water controls --- */
+        if (onWater == true) {
+            //activate whirlpool when A is pressed
+            if (Input.GetKeyDown(KeyCode.A)) {
+                curVel = whirlpoolVel;
+            }
+            //activate splash when W is pressed
+            else if (Input.GetKeyDown(KeyCode.W)) { 
+                curVel = splashVel;
+                goingUp = true;
+                onWater = false;
+            }
+            //activate wave when D is pressed
+            else if (Input.GetKeyDown(KeyCode.D)) {
+                curVel = waveVel;
+                goingUp = true;
+                onWater = false;
+            }
+        }
+
+        /* --- Now move the duck according to velocity. --- */
+
+        //if going up, slow down to halt.
+        if(goingUp == true) {
+            if (Mathf.Abs(curVel.x - idleVel.x) > 0.1f) {
+                //accelerate the duck's velocity to target velocity
+                curVel.y = Mathf.Lerp(curVel.y,idleVel.y,Time.deltaTime*acc);
+            } else { goingUp = false; }
+        //now going down:
+        } else {
+            if (transform.position.y > minY) {
+                curVel.y -= Time.deltaTime*gravity;
+            } else { 
+                curVel.y = idleVel.y; 
+                onWater = true;
+            }
+        }
+
+        //slow down current x velocity to idle.
+        curVel.x = Mathf.Lerp(curVel.x,idleVel.x,Time.deltaTime*acc);
+
+        //move the duck according to current velocity
+        transform.Translate(curVel.x,curVel.y,0);
+
 	}
 
-	void Whirlpool() {
-		velocityX = 0;
-		if(waterAction == null)
-		{
-			Vector3 spawnPos = new Vector3(transform.position.x, -4f, transform.position.z);
-			waterAction = Instantiate(whirlpool,spawnPos,spawnRotation) as Transform;
-		}
-	}
-
-	void Wave() {
-		velocityY = velocityYLimit;
-		velocityX = velocityXLimit;
-	}
-
-	void Move() {
-		//MOVE TO THE RIGHT
-		transform.Translate(Time.deltaTime*velocityX, Time.deltaTime*velocityY, 0);
-
-		//ACCELTERATE
-		if (velocityX < velocityXLimit) velocityX += accelerationX;
-
-		//DECELERATE
-		if (velocityY > 0) velocityY -= accelerationY;
-	}
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Enemy") {
+            damage_level += 1;
+            damageParticles.Play();
+            if (damage_level >= 3) {
+                Debug.Log("Player should be dead by now.");
+                damage_level %= 3;  // TODO: Get rid of this
+            }
+            playerBase.renderer.material.mainTexture = duckHealth[damage_level];
+            //          Debug.Log("FUNCTION CALLED");
+        }
+    }
 
 }
+
+

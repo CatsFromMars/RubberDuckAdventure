@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HazardGenerator.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerBehavior.cs">
     <Files>
-      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="71" Column="9" />
+      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="12" Column="5" />
+      <File FileName="Assets\Scripts\PlayerBehavior.cs" Line="103" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
