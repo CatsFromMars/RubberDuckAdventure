@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Moves the waves in a wavy way.
 /// </summary>
-public class Wavy : MonoBehaviour {
+public class WaveCollection : MonoBehaviour {
 	public GameObject wave1;
 	public GameObject wave2;
 	public GameObject wave3;
@@ -40,27 +40,36 @@ public class Wavy : MonoBehaviour {
 	private float time = 0.0f;
 
 	// Use this for initialization
-	void Start () {
-		w1 = wave1.transform.position;
-		w2 = wave2.transform.position;
-		w3 = wave3.transform.position;
+	void Start() {
+		w1 = wave1.transform.position - this.transform.position;
+        w2 = wave2.transform.position - this.transform.position;
+        w3 = wave3.transform.position - this.transform.position;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 
 		time += Time.deltaTime;
 
 		// wave 1
-		wave1.transform.position = w1 + new Vector3(w1Ax*Mathf.Cos(w1fx*time+w1px), 
-		                                            w1Ay*Mathf.Cos(w1fy*time+w1py), 0.0f);  
-
+		wave1.transform.position = this.transform.position + w1 + new Vector3(
+                w1Ax * Mathf.Cos(w1fx * time + w1px), 
+                w1Ay * Mathf.Cos(w1fy * time + w1py),
+                0.0f
+            );
+            
 		// wave 2
-		wave2.transform.position = w2 + new Vector3(w2Ax*Mathf.Cos(w2fx*time+w2px), 
-		                                            w2Ay*Mathf.Cos(w2fy*time+w2py), 0.0f);   
-
+        wave2.transform.position = this.transform.position + w2 + new Vector3(
+                w2Ax * Mathf.Cos(w2fx * time + w2px), 
+		        w2Ay * Mathf.Cos(w2fy * time + w2py),
+                0.0f
+            );
+            
 		// wave 3
-		wave3.transform.position = w3 + new Vector3(w3Ax*Mathf.Cos(w3fx*time+w3px), 
-		                                            w3Ay*Mathf.Cos(w3fy*time+w3py), 0.0f);  
+        wave3.transform.position = this.transform.position + w3 + new Vector3(
+                w3Ax * Mathf.Cos(w3fx * time + w3px),      
+                w3Ay * Mathf.Cos(w3fy * time + w3py),
+                0.0f
+            );
 	}
 }

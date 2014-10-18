@@ -1,33 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WaveRecycler : MonoBehaviour {
-	GameObject[] waves;
-	Wavy waveController1;
-	Wavy waveController2;
-	Wavy waveController3;
-
-	int nextWavesToRecycle = 0;
+public class WaveManager : MonoBehaviour {
+    private GameObject duck;
+    private GameObject[] waves;
 	
-	float lastDuckXPos;
+	private int nextWavesToRecycle = 0;
 	
-//	const float RECYCLE_DISP = 25.0f;
-	float WAVE_WIDTH;
+	private float lastDuckXPos;
+	
+	private float WAVE_WIDTH;
 
 	// Use this for initialization
+    void Start() {
+        duck = GameObject.Find("Duck");
 
-	void Start() {
+        lastDuckXPos = get_duck_pos();
+
 		waves = new GameObject[] {
 			GameObject.Find("WaveCollection0"),
 			GameObject.Find("WaveCollection1"),
 			GameObject.Find("WaveCollection2"),
 		};
-
-		waveController1 = waves[0].GetComponent<Wavy>();
-		waveController2 = waves[1].GetComponent<Wavy>();
-		waveController3 = waves[2].GetComponent<Wavy>();
-
-		lastDuckXPos = get_duck_pos();
 
 		MeshFilter waveMesh = (MeshFilter) GameObject.Find("PlaneWave1").GetComponent("MeshFilter");
 		WAVE_WIDTH = waveMesh.collider.bounds.size.x;
@@ -43,7 +37,7 @@ public class WaveRecycler : MonoBehaviour {
 
 	// Get duck X position
 	private float get_duck_pos() {
-		return GameObject.Find("Duck").transform.position.x;
+		return duck.transform.position.x;
 	}
 	
 	void recycle_waves() {
