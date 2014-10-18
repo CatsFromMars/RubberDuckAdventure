@@ -55,8 +55,6 @@
      <Compile Include="Assets\Scripts\StartMenu.cs" />
      <Compile Include="Assets\Scripts\WaveCollection.cs" />
      <Compile Include="Assets\Scripts\WaveManager.cs" />
-     <Compile Include="Assets\Scripts\WaveRecycler.cs" />
-     <Compile Include="Assets\Scripts\Wavy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
