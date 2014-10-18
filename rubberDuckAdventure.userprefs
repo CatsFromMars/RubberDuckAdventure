@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HazardGenerator.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WaveManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="71" Column="9" />
+      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="20" Column="5" />
+      <File FileName="Assets\Scripts\WaveManager.cs" Line="47" Column="24" />
+      <File FileName="Assets\Scripts\WaveCollection.cs" Line="57" Column="54" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
