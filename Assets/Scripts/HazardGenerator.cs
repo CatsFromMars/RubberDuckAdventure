@@ -13,19 +13,19 @@ public class HazardGenerator : MonoBehaviour {
     private GameObject duck;
 
     private List<GameObject> activeHazards = new List<GameObject>();
-    private const int MAX_HAZARDS = 5;
+    private const int MAX_HAZARDS = 1;
     
     private const int MIN_SPAWN_DIST = 25;
-    private const int MAX_SPAWN_DIST = 75;
+    private const int MAX_SPAWN_DIST = 50;
 
-    private const int CLEANUP_DIST = 5;
+    private const int CLEANUP_DIST = 10;
 
     // Use this for initialization
     void Start() {
         duck = GameObject.Find("Duck");
     }
 
-    // Spawn an enemy. Arrrh!
+    /* Spawn an enemy. Arrrh! */
     void spawn_enemy() {
         Debug.Log("Spawning new enemy...");
 
@@ -83,7 +83,7 @@ public class HazardGenerator : MonoBehaviour {
 
     }
 
-    // Be a good citizen and clean up when you're finished.
+    /* Be a good citizen and clean up when you're finished. */
     void clean_up_enemy() {
         Debug.Log("Cleaning up off-screen enemy...");
 
@@ -95,7 +95,7 @@ public class HazardGenerator : MonoBehaviour {
         
     }
     
-    // Get duck X position
+    /* Get duck X position */
     private float get_duck_pos() {
         return duck.transform.position.x;
     }
