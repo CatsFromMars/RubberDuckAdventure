@@ -12,7 +12,7 @@ public class PointSystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-            score = Mathf.Floor(duck.position.x + 6);
+            score = Mathf.Floor(duck.position.x + 11);
             guiText.text = "Score: " + score.ToString();
         }
 }
