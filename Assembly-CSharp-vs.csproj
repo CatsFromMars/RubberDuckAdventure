@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\HazardGenerator.cs" />
      <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
      <Compile Include="Assets\Scripts\PointSystem.cs" />
+     <Compile Include="Assets\Scripts\SceneryGenerator.cs" />
      <Compile Include="Assets\Scripts\SpikedTurtle.cs" />
      <Compile Include="Assets\Scripts\SpriteAnimator.cs" />
      <Compile Include="Assets\Scripts\StartMenu.cs" />

@@ -1,8 +1,17 @@
 ﻿<Properties>
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerBehavior.cs">
     <Files>
       <File FileName="Assets\Scripts\PlayerBehavior.cs" Line="94" Column="42" />
+=======
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SceneryGenerator.cs">
+    <Files>
+      <File FileName="Assets\Scripts\SceneryGenerator.cs" Line="84" Column="42" />
+      <File FileName="Assets\Scripts\WaveManager.cs" Line="33" Column="52" />
+      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="33" Column="9" />
+>>>>>>> 2c9c5dbf305947a8a3861b6db0984cdf57c6a01a
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

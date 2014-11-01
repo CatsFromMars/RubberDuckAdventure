@@ -27,7 +27,7 @@ public class HazardGenerator : MonoBehaviour {
 
     /* Spawn an enemy. Arrrh! */
     void spawn_enemy() {
-        Debug.Log("Spawning new enemy...");
+//        Debug.Log("Spawning new enemy...");
 
         float distFromDuck;
 
@@ -55,7 +55,7 @@ public class HazardGenerator : MonoBehaviour {
                 invalid = newEnemy.collider.bounds.Intersects(enemy.collider.bounds);
 
                 if (invalid) {
-                    Debug.Log("Spawned colliding enemy! Trying again...");
+//                    Debug.Log("Spawned colliding enemy! Trying again...");
                     Destroy(newEnemy);  // Blah blah blah this is inefficient blah blah who cares
                     newEnemy = null;
                     break;
@@ -63,15 +63,15 @@ public class HazardGenerator : MonoBehaviour {
 
             }
 
-            if (!invalid) {
-                Debug.Log("Spawned enemy that does not collide.");
-            }
+//            if (!invalid) {
+//                Debug.Log("Spawned enemy that does not collide.");
+//            }
 
         }
 
-        if (i == 10) {
-            Debug.Log("Could not place a non-colliding enemy! Giving up...");
-        }
+//        if (i == 10) {
+//            Debug.Log("Could not place a non-colliding enemy! Giving up...");
+//        }
 
         // We must have had an assignment by now!
         System.Diagnostics.Debug.Assert(newEnemy != null);
@@ -85,7 +85,7 @@ public class HazardGenerator : MonoBehaviour {
 
     /* Be a good citizen and clean up when you're finished. */
     void clean_up_enemy() {
-        Debug.Log("Cleaning up off-screen enemy...");
+//        Debug.Log("Cleaning up off-screen enemy...");
 
         GameObject hazardToDestroy = activeHazards[0];
 
