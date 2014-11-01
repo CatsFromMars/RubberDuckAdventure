@@ -25,17 +25,24 @@ public class PlayerBehavior : MonoBehaviour {
 
     //damage vars
 	public int damage_level = 0;
+	public int shockedFace = 0;
+	public int shockedFaceFrame = 61;
 	public string ID = "Player";
     public Transform playerBase;
 	public Texture duckBase;
 	public Texture DuckDamageLevel2;
 	public Texture DuckDamageLevel3;
+    public Transform playerFace;
+	public Texture duckFaceNeutral;
+	public Texture duckFaceCrying;
     public Texture[] duckHealth;
+    public Texture[] duckFace;
     public ParticleSystem damageParticles;
 
 	/* ----- SETUP ----- */
     void Awake () {
 		duckHealth = new Texture[3] {duckBase, DuckDamageLevel2, DuckDamageLevel3};
+		duckFace = new Texture[2] {duckFaceNeutral,duckFaceCrying};
         minY = transform.position.y;
 	}
 	
@@ -85,12 +92,21 @@ public class PlayerBehavior : MonoBehaviour {
 
         //move the duck according to current velocity
         transform.Translate(curVel.x,curVel.y,0);
-
+	
+	//set duck face's texture, 30 frames per second
+	if (shockedFaceFrame == 60) {
+		shockedFace = 0;
+		playerFace.renderer.material.mainTexture = duckFace[shockedFace];
+	}
+	shockedFaceFrame += 1;
 	}
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Enemy") {
             damage_level += 1;
+	    shockedFaceFrame = 0;
+	    shockedFace = 1;
+	    playerFace.renderer.material.mainTexture = duckFace[shockedFace];
             damageParticles.Play();
             if (damage_level >= 3) {
                 Debug.Log("Player should be dead by now.");
