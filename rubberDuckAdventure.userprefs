@@ -1,16 +1,8 @@
 ﻿<Properties>
-<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PointSystem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerBehavior.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerBehavior.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PointSystem.cs" Line="15" Column="53" />
-=======
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HazardGenerator.cs">
-    <Files>
-      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="21" Column="41" />
->>>>>>> 1be63d85238eb3e106ea23a2be3d580084642d3f
+      <File FileName="Assets\Scripts\PlayerBehavior.cs" Line="94" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

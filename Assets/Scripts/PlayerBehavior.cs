@@ -32,6 +32,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public Texture DuckDamageLevel3;
     public Texture[] duckHealth;
     public ParticleSystem damageParticles;
+    public ParticleSystem waterParticles;
 
 	/* ----- SETUP ----- */
     void Awake () {
@@ -69,13 +70,15 @@ public class PlayerBehavior : MonoBehaviour {
             if (Mathf.Abs(curVel.x - idleVel.x) > 0.1f) {
                 //accelerate the duck's velocity to target velocity
                 curVel.y = Mathf.Lerp(curVel.y,idleVel.y,Time.deltaTime*acc);
-            } else { goingUp = false; }
+            } else {
+                goingUp = false;
+            }
         //now going down:
         } else {
             if (transform.position.y > minY) {
                 curVel.y -= Time.deltaTime*gravity;
             } else { 
-                curVel.y = idleVel.y; 
+                curVel.y = idleVel.y;
                 onWater = true;
             }
         }
