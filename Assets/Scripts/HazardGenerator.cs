@@ -5,10 +5,12 @@ using System;
 
 public class HazardGenerator : MonoBehaviour {
     // Yay magic numbers!
-    private Vector3 BASE_COORDS = new Vector3(0, -2.6f, 0.25f);
+    private Vector3 TURTLE_BASE_COORDS = new Vector3(0, -2.6f, 0.25f);
+    private Vector3 CROC_BASE_COORDS = new Vector3(0, -4.0f, 0.25f);
     private Quaternion BASE_ROTATION = new Quaternion(-0.7f, 0, 0, 0.7f);
 
     public Transform SpikedTurtle;
+    public Transform Croc;
 
     private GameObject duck;
 
@@ -25,10 +27,23 @@ public class HazardGenerator : MonoBehaviour {
         duck = GameObject.Find("Duck");
     }
 
+    /* Randomly choose an enemy to spawn, with proper weighting. */
+    Transform choose_enemy_type(out Vector3 enemyBaseCoords) {
+        float n = UnityEngine.Random.Range(0, 100);
+
+        if (n < 50.0f) {
+            enemyBaseCoords = CROC_BASE_COORDS;
+            return Croc;
+        }
+        else {
+            enemyBaseCoords = TURTLE_BASE_COORDS;
+            return SpikedTurtle;
+        }
+
+    }
+
     /* Spawn an enemy. Arrrh! */
     void spawn_enemy() {
-//        Debug.Log("Spawning new enemy...");
-
         float distFromDuck;
 
         Transform newEnemyTransform;
@@ -41,9 +56,12 @@ public class HazardGenerator : MonoBehaviour {
         for (i=0; i<10 && invalid; i++) {
             distFromDuck = UnityEngine.Random.Range(MIN_SPAWN_DIST, MAX_SPAWN_DIST);
 
+            Vector3 enemyBaseCoords;
+            Transform EnemyType = choose_enemy_type(out enemyBaseCoords);
+
             newEnemyTransform = (Transform) Instantiate(
-                    SpikedTurtle,
-                    BASE_COORDS + Vector3.right * (get_duck_pos() + distFromDuck),
+                    EnemyType,
+                    enemyBaseCoords + Vector3.right * (get_duck_pos() + distFromDuck),
                     BASE_ROTATION
                 );
 
@@ -55,23 +73,13 @@ public class HazardGenerator : MonoBehaviour {
                 invalid = newEnemy.collider.bounds.Intersects(enemy.collider.bounds);
 
                 if (invalid) {
-//                    Debug.Log("Spawned colliding enemy! Trying again...");
                     Destroy(newEnemy);  // Blah blah blah this is inefficient blah blah who cares
                     newEnemy = null;
                     break;
                 }
-
             }
 
-//            if (!invalid) {
-//                Debug.Log("Spawned enemy that does not collide.");
-//            }
-
         }
-
-//        if (i == 10) {
-//            Debug.Log("Could not place a non-colliding enemy! Giving up...");
-//        }
 
         // We must have had an assignment by now!
         System.Diagnostics.Debug.Assert(newEnemy != null);
@@ -84,15 +92,21 @@ public class HazardGenerator : MonoBehaviour {
     }
 
     /* Be a good citizen and clean up when you're finished. */
-    void clean_up_enemy() {
-//        Debug.Log("Cleaning up off-screen enemy...");
+    void clean_up_enemies() {
+        List<GameObject> hazardsToDestroy = new List<GameObject>();
 
-        GameObject hazardToDestroy = activeHazards[0];
+        // Build a list of hazards eligible for destruction
+        foreach (GameObject hazard in activeHazards) {
+            if (hazard.transform.position.x < get_duck_pos() - CLEANUP_DIST) {
+                hazardsToDestroy.Add(hazard);
+            }
+        }
 
-        activeHazards.RemoveAt(0);
-
-        Destroy(hazardToDestroy);
-        
+        // Destroy all eligible objects
+        foreach (GameObject hazard in hazardsToDestroy) {
+            activeHazards.Remove(hazard);
+            Destroy(hazard);
+        }
     }
     
     /* Get duck X position */
@@ -102,8 +116,6 @@ public class HazardGenerator : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-//        Debug.Log(String.Format("Count is {0}", activeHazards.Count));
-        
         // If this doesn't hold, then something broke somewhere...
         System.Diagnostics.Debug.Assert(activeHazards.Count <= MAX_HAZARDS);
 
@@ -113,9 +125,7 @@ public class HazardGenerator : MonoBehaviour {
             }
         }
         else if (activeHazards.Count == MAX_HAZARDS) {
-            if (activeHazards[0].transform.position.x < get_duck_pos() - CLEANUP_DIST) {
-                clean_up_enemy();
-            }
+            clean_up_enemies();
         }
 
     }
