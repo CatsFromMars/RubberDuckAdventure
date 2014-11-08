@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Float.cs" />
      <Compile Include="Assets\Scripts\GameOverMenu.cs" />
      <Compile Include="Assets\Scripts\HazardGenerator.cs" />
+     <Compile Include="Assets\Scripts\HeronScript.cs" />
      <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
      <Compile Include="Assets\Scripts\PointSystem.cs" />
      <Compile Include="Assets\Scripts\SceneryGenerator.cs" />
