@@ -12,6 +12,8 @@ public class PlayerBehavior : MonoBehaviour {
     public float gravity;
     private bool goingUp = false;
     private bool onWater = true;
+    public bool isDead = false;
+    public PointSystem pointSystem;
 
     //water control vars
     public Vector2 idleVel; //(0.5,0)
@@ -28,6 +30,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public int shockedFace = 0;
 	public int shockedFaceFrame = 61;
 	public string ID = "Player";
+    public Quaternion deathRotation;
     public Transform playerBase;
 	public Texture duckBase;
 	public Texture DuckDamageLevel2;
@@ -51,19 +54,19 @@ public class PlayerBehavior : MonoBehaviour {
     void Update () {
 		
         /* --- water controls --- */
-        if (onWater == true) {
+        if (onWater == true && isDead == false) {
             //activate whirlpool when A is pressed
             if (Input.GetKeyDown(KeyCode.A)) {
                 curVel = whirlpoolVel;
             }
             //activate splash when W is pressed
-            else if (Input.GetKeyDown(KeyCode.W)) { 
+            else if (Input.GetKeyDown(KeyCode.W) && isDead == false) { 
                 curVel = splashVel;
                 goingUp = true;
                 onWater = false;
             }
             //activate wave when D is pressed
-            else if (Input.GetKeyDown(KeyCode.D)) {
+            else if (Input.GetKeyDown(KeyCode.D) && isDead == false) {
                 curVel = waveVel;
                 goingUp = true;
                 onWater = false;
@@ -96,6 +99,12 @@ public class PlayerBehavior : MonoBehaviour {
         //move the duck according to current velocity
         transform.Translate(curVel.x,curVel.y,0);
 	
+	//Rotate duck if dead
+	if (isDead == true){
+		deathRotation = Quaternion.Euler(0, 0, 45);
+		transform.rotation = Quaternion.Slerp(transform.rotation,deathRotation,2*Time.deltaTime);
+	}
+
 	//set duck face's texture, 30 frames per second
 	if (shockedFaceFrame == 60) {
 		shockedFace = 0;
@@ -103,7 +112,14 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 	shockedFaceFrame += 1;
 	}
-
+	
+    void Die() {
+	isDead = true;
+	curVel.x = 0;
+	idleVel.x = 0;
+	curVel.y = -0.01F;
+	idleVel.y = -0.01F;
+    }
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Enemy") {
             damage_level += 1;
@@ -113,6 +129,7 @@ public class PlayerBehavior : MonoBehaviour {
             damageParticles.Play();
             if (damage_level >= 3) {
                 Debug.Log("Player should be dead by now.");
+		Die();
                 damage_level %= 3;  // TODO: Get rid of this
             }
             playerBase.renderer.material.mainTexture = duckHealth[damage_level];
