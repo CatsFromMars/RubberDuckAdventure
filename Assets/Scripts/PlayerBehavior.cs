@@ -9,6 +9,7 @@ public class PlayerBehavior : MonoBehaviour {
     public Vector2 toVel;
     private float minY;
     public float acc;
+    private float accTemp;
     public float gravity;
     private bool goingUp = false;
     private bool onWater = true;
@@ -48,6 +49,7 @@ public class PlayerBehavior : MonoBehaviour {
 		duckHealth = new Texture[3] {duckBase, DuckDamageLevel2, DuckDamageLevel3};
 		duckFace = new Texture[2] {duckFaceNeutral,duckFaceCrying};
         minY = transform.position.y;
+        accTemp = acc;
 	}
 	
 	/* --- MAIN LOOP --- */
@@ -58,7 +60,9 @@ public class PlayerBehavior : MonoBehaviour {
             //activate whirlpool when A is pressed
             if (Input.GetKeyDown(KeyCode.A)) {
                 curVel = whirlpoolVel;
+                acc = 0;
             }
+            if(Input.GetKeyUp(KeyCode.A)) acc = accTemp;
             //activate splash when W is pressed
             else if (Input.GetKeyDown(KeyCode.W) && isDead == false) { 
                 curVel = splashVel;
