@@ -45,7 +45,7 @@ public class Croc : MonoBehaviour {
     }
 
     /* Move the croc up per frame, while RISING */
-	private void move_up() {
+	private void rise() {
 		transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 		
         if (transform.position.y >= targetPos.y) {
@@ -65,7 +65,7 @@ public class Croc : MonoBehaviour {
                 break;
 
             case CrocState.RISING:
-                move_up();
+                rise();
                 break;
 
             case CrocState.CHARGING:
