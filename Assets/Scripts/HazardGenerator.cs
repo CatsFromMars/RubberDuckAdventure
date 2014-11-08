@@ -7,10 +7,13 @@ public class HazardGenerator : MonoBehaviour {
     // Yay magic numbers!
     private Vector3 TURTLE_BASE_COORDS = new Vector3(0, -2.6f, 0.25f);
     private Vector3 CROC_BASE_COORDS = new Vector3(0, -4.0f, 0.25f);
+    private Vector3 HERON_BASE_COORDS = new Vector3(0, 0, 0.25f);
+
     private Quaternion BASE_ROTATION = new Quaternion(-0.7f, 0, 0, 0.7f);
 
     public Transform SpikedTurtle;
     public Transform Croc;
+    public Transform Heron;
 
     private GameObject duck;
 
@@ -31,9 +34,13 @@ public class HazardGenerator : MonoBehaviour {
     Transform choose_enemy_type(out Vector3 enemyBaseCoords) {
         float n = UnityEngine.Random.Range(0, 100);
 
-        if (n < 50.0f) {
+        if (n < 25.0f) {
             enemyBaseCoords = CROC_BASE_COORDS;
             return Croc;
+        }
+        else if (n < 50.0f) {
+            enemyBaseCoords = HERON_BASE_COORDS;
+            return Heron;
         }
         else {
             enemyBaseCoords = TURTLE_BASE_COORDS;
