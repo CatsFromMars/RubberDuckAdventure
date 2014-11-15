@@ -1,22 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerBehavior.cs">
-    <Files>
-      <File FileName="Assets\Scripts\SceneryGenerator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Croc.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CrocJaw.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerBehavior.cs" Line="65" Column="57" />
-=======
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HazardGenerator.cs">
     <Files>
-      <File FileName="Assets\Scripts\WaveCollection.cs" Line="27" Column="28" />
-      <File FileName="Assets\Scripts\SceneryGenerator.cs" Line="18" Column="5" />
-      <File FileName="Assets\Scripts\Croc.cs" Line="52" Column="32" />
-      <File FileName="Assets\Scripts\CrocJaw.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="41" Column="24" />
->>>>>>> 1d683a9d953513ecec863e09e95b7e2c84724feb
+      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="109" Column="5" />
+      <File FileName="Assets\Scripts\Croc.cs" Line="30" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
