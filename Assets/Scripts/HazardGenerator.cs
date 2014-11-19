@@ -18,10 +18,13 @@ public class HazardGenerator : MonoBehaviour {
     private GameObject duck;
 
     private List<GameObject> activeHazards = new List<GameObject>();
-    private const int MAX_HAZARDS = 1;
+    private const int MAX_HAZARDS = 5;
     
     private const int MIN_SPAWN_DIST = 25;
-    private const int MAX_SPAWN_DIST = 50;
+    private const int MAX_SPAWN_DIST = 75;
+
+    // Minimum distance between spawned enemies.
+    private const int MIN_ENEMY_DIST = 8;
 
     private const int CLEANUP_DIST = 10;
 
@@ -31,7 +34,7 @@ public class HazardGenerator : MonoBehaviour {
     }
 
     /* Randomly choose an enemy to spawn, with proper weighting. */
-    Transform choose_enemy_type(out Vector3 enemyBaseCoords) {
+    private Transform choose_enemy_type(out Vector3 enemyBaseCoords) {
         float n = UnityEngine.Random.Range(0, 100);
 
         if (n < 25.0f) {
@@ -49,8 +52,16 @@ public class HazardGenerator : MonoBehaviour {
 
     }
 
+    /* Are the two given enemies too close to each other? */
+    private bool enemies_too_close(GameObject enemy1, GameObject enemy2) {
+        float dist = enemy1.transform.position.x - enemy2.transform.position.x;
+        return Math.Abs(dist) < MIN_ENEMY_DIST;
+    }
+
     /* Spawn an enemy. Arrrh! */
-    void spawn_enemy() {
+    private void spawn_enemy() {
+        Debug.Log("Trying to spawn new enemy...");
+
         float distFromDuck;
 
         Transform newEnemyTransform;
@@ -58,9 +69,7 @@ public class HazardGenerator : MonoBehaviour {
 
         bool invalid = true;
 
-        int i;
-
-        for (i=0; i<10 && invalid; i++) {
+        for (int i=0; i<10 && invalid; i++) {
             distFromDuck = UnityEngine.Random.Range(MIN_SPAWN_DIST, MAX_SPAWN_DIST);
 
             Vector3 enemyBaseCoords;
@@ -77,7 +86,7 @@ public class HazardGenerator : MonoBehaviour {
             invalid = false;
 
             foreach (GameObject enemy in activeHazards) {
-                invalid = newEnemy.collider.bounds.Intersects(enemy.collider.bounds);
+                invalid = enemies_too_close(enemy, newEnemy);
 
                 if (invalid) {
                     Destroy(newEnemy);  // Blah blah blah this is inefficient blah blah who cares
@@ -88,10 +97,10 @@ public class HazardGenerator : MonoBehaviour {
 
         }
 
-        // We must have had an assignment by now!
-        System.Diagnostics.Debug.Assert(newEnemy != null);
-
-        activeHazards.Add(newEnemy);
+        if (newEnemy != null) {
+            activeHazards.Add(newEnemy);
+            Debug.Log("Spawned new enemy!");
+        }
         
         // Otherwise something messed up
         System.Diagnostics.Debug.Assert(activeHazards.Count <= MAX_HAZARDS);
@@ -99,7 +108,7 @@ public class HazardGenerator : MonoBehaviour {
     }
 
     /* Be a good citizen and clean up when you're finished. */
-    void clean_up_enemies() {
+    private void clean_up_enemies() {
         List<GameObject> hazardsToDestroy = new List<GameObject>();
 
         // Build a list of hazards eligible for destruction
@@ -114,6 +123,7 @@ public class HazardGenerator : MonoBehaviour {
             activeHazards.Remove(hazard);
             Destroy(hazard);
         }
+
     }
     
     /* Get duck X position */

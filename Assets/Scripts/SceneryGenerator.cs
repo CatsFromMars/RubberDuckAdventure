@@ -62,8 +62,6 @@ public class SceneryGenerator : MonoBehaviour {
 
     /* Spawn some scenery. Ahhhh... */
     private void spawn_scenery() {
-        Debug.Log("Spawning new scenery...");
-
         float distFromDuck;
 
         Transform newSceneryTransform;
@@ -89,7 +87,7 @@ public class SceneryGenerator : MonoBehaviour {
     }
 
     /* Be a good citizen and clean up when you're finished. */
-    void clean_up_scenery() {
+    private void clean_up_scenery() {
         float duckPos = get_duck_pos();
 
         for (int i=0; i<activeScenery.Count; i++) {

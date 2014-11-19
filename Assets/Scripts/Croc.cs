@@ -23,7 +23,7 @@ public class Croc : MonoBehaviour {
     public int crocSpeed = 5;
 
     // Distance at which Croc will charge the duck
-    private int CHARGE_DIST = 20;
+    private float CHARGE_DIST = 19.0f;
 
     private GameObject duck;
 
