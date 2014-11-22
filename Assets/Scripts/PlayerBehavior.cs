@@ -14,7 +14,7 @@ public class PlayerBehavior : MonoBehaviour {
     private bool goingUp = false;
     private bool onWater = true;
     public bool isDead = false;
-    private float minOffset = 0.2f;
+    private float minOffset = 0.5f;
     public PointSystem pointSystem;
 
     //water control vars
