@@ -79,8 +79,8 @@ public class HeronScript : MonoBehaviour {
         if(upTimer > 0) { upTimer -= Time.deltaTime; }
 
         /* --- PLAYER DAMAGE CODE HERE --- */
-        if(frame == 9) { transform.gameObject.tag = "Enemy"; } 
-        else { transform.gameObject.tag = "Untagged"; }
+        if(frame == 9) { collider.enabled = true; } 
+        else { collider.enabled = false; }
 
 	}
 
