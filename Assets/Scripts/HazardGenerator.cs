@@ -18,8 +18,30 @@ public class HazardGenerator : MonoBehaviour {
     private GameObject duck;
 
     private List<GameObject> activeHazards = new List<GameObject>();
-    private const int MAX_HAZARDS = 5;
+    private const int ABSOLUTE_MAX_HAZARDS = 5;     // maxHazards cannot go above this
+    private int maxHazards = 1;
     
+    private const int HAZARD_RAMP_THRESHOLD_1 = 5;      // # of spawned enemies before we increase the number of enemies from 1 to 2
+    private const int HAZARD_RAMP_THRESHOLD_2 = 10;     // # of spawned enemies before increase from 2 to 3
+    private const int HAZARD_RAMP_THRESHOLD_3 = 15;     // 3 to 4
+    private const int HAZARD_RAMP_THRESHOLD_4 = 30;     // 4 to 5
+
+    private int[] hazardRampThresholds = new int[] {
+        0,                          // This is here so we can directly index using maxHazards without an off-by-one correction
+        HAZARD_RAMP_THRESHOLD_1,
+        HAZARD_RAMP_THRESHOLD_2,
+        HAZARD_RAMP_THRESHOLD_3,
+        HAZARD_RAMP_THRESHOLD_4,
+    };
+
+    private int spawnsSinceLastRamp = 0;
+    
+    private const float CROC_THRESHOLD_START = 0.0f;
+    private const float CROC_THRESHOLD_END = 25.0f;
+    
+    private const float HERON_THRESHOLD_START = 0.0f;
+    private const float HERON_THRESHOLD_END = 50.0f;
+
     private const int MIN_SPAWN_DIST = 25;
     private const int MAX_SPAWN_DIST = 75;
 
@@ -60,7 +82,7 @@ public class HazardGenerator : MonoBehaviour {
 
     /* Spawn an enemy. Arrrh! */
     private void spawn_enemy() {
-        Debug.Log("Trying to spawn new enemy...");
+//        Debug.Log("Trying to spawn new enemy...");
 
         float distFromDuck;
 
@@ -99,11 +121,11 @@ public class HazardGenerator : MonoBehaviour {
 
         if (newEnemy != null) {
             activeHazards.Add(newEnemy);
-            Debug.Log("Spawned new enemy!");
+//            Debug.Log("Spawned new enemy!");
         }
         
         // Otherwise something messed up
-        System.Diagnostics.Debug.Assert(activeHazards.Count <= MAX_HAZARDS);
+        System.Diagnostics.Debug.Assert(activeHazards.Count <= maxHazards);
 
     }
 
@@ -134,14 +156,24 @@ public class HazardGenerator : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         // If this doesn't hold, then something broke somewhere...
-        System.Diagnostics.Debug.Assert(activeHazards.Count <= MAX_HAZARDS);
+        System.Diagnostics.Debug.Assert(activeHazards.Count <= maxHazards);
 
-        if (activeHazards.Count < MAX_HAZARDS) {
+        if (activeHazards.Count < maxHazards) {
             if (UnityEngine.Random.Range(0, 100) < 50) {
                 spawn_enemy();
+
+                if (maxHazards < ABSOLUTE_MAX_HAZARDS) {
+                    spawnsSinceLastRamp++;
+
+                    if (spawnsSinceLastRamp >= hazardRampThresholds[maxHazards]) {
+                        spawnsSinceLastRamp = 0;
+                        maxHazards++;
+                        Debug.Log(String.Format("maxHazards is now: {0}", maxHazards));
+                    }
+                }
             }
         }
-        else if (activeHazards.Count == MAX_HAZARDS) {
+        else if (activeHazards.Count == maxHazards) {
             clean_up_enemies();
         }
 
