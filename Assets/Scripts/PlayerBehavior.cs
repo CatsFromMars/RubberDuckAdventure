@@ -63,7 +63,7 @@ public class PlayerBehavior : MonoBehaviour {
 	/* --- MAIN LOOP --- */
     void Update () {
 
-        Debug.Log(isDoingSomething);
+//        Debug.Log(isDoingSomething);
 
         //PLAYER CAN'T MAKE ANOTHER MOVE UNTIL KEY IS UP
         if(!Input.GetKeyDown(KeyCode.W) && !Input.GetKeyDown(KeyCode.D) 
