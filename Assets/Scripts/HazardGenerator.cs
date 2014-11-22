@@ -21,7 +21,7 @@ public class HazardGenerator : MonoBehaviour {
     private const int ABSOLUTE_MAX_HAZARDS = 5;     // maxHazards cannot go above this
     private int maxHazards = 1;
     
-    private const int HAZARD_RAMP_THRESHOLD_1 = 5;      // # of spawned enemies before we increase the number of enemies from 1 to 2
+    private const int HAZARD_RAMP_THRESHOLD_1 = 3;      // # of spawned enemies before we increase the number of enemies from 1 to 2
     private const int HAZARD_RAMP_THRESHOLD_2 = 10;     // # of spawned enemies before increase from 2 to 3
     private const int HAZARD_RAMP_THRESHOLD_3 = 15;     // 3 to 4
     private const int HAZARD_RAMP_THRESHOLD_4 = 30;     // 4 to 5
@@ -34,13 +34,20 @@ public class HazardGenerator : MonoBehaviour {
         HAZARD_RAMP_THRESHOLD_4,
     };
 
+    // Magic constant that is used in the spawn threshold adjustment formula below
+    private float spawnAdjustConstant;
+
+    private int totalSpawns = 0;
     private int spawnsSinceLastRamp = 0;
     
     private const float CROC_THRESHOLD_START = 0.0f;
     private const float CROC_THRESHOLD_END = 25.0f;
-    
+
     private const float HERON_THRESHOLD_START = 0.0f;
     private const float HERON_THRESHOLD_END = 50.0f;
+    
+    private float crocThreshold = CROC_THRESHOLD_START;
+    private float heronThreshold = HERON_THRESHOLD_START;
 
     private const int MIN_SPAWN_DIST = 25;
     private const int MAX_SPAWN_DIST = 75;
@@ -53,17 +60,24 @@ public class HazardGenerator : MonoBehaviour {
     // Use this for initialization
     void Start() {
         duck = GameObject.Find("Duck");
+
+        int spawnThresholdTotal = 0;
+        foreach (int spawnThreshold in hazardRampThresholds) {
+            spawnThresholdTotal += spawnThreshold;
+        }
+
+        spawnAdjustConstant = ((float) spawnThresholdTotal) / 6.0f;
     }
 
     /* Randomly choose an enemy to spawn, with proper weighting. */
     private Transform choose_enemy_type(out Vector3 enemyBaseCoords) {
         float n = UnityEngine.Random.Range(0, 100);
 
-        if (n < 25.0f) {
+        if (n < crocThreshold) {
             enemyBaseCoords = CROC_BASE_COORDS;
             return Croc;
         }
-        else if (n < 50.0f) {
+        else if (n < heronThreshold) {
             enemyBaseCoords = HERON_BASE_COORDS;
             return Heron;
         }
@@ -153,6 +167,11 @@ public class HazardGenerator : MonoBehaviour {
         return duck.transform.position.x;
     }
 
+    /* Use a magic formula to calculate enemy spawn thresholds */
+    private float calculate_spawn_threshold(int x, float min, float max) {
+        return (float) (1.0f - Math.Exp(-((float) x) / spawnAdjustConstant)) * (max - min) + min;   // MATH!!!
+    }
+
     // Update is called once per frame
     void Update() {
         // If this doesn't hold, then something broke somewhere...
@@ -162,6 +181,26 @@ public class HazardGenerator : MonoBehaviour {
             if (UnityEngine.Random.Range(0, 100) < 50) {
                 spawn_enemy();
 
+                totalSpawns++;
+
+                // Adjust croc spawn threshold
+                crocThreshold = calculate_spawn_threshold(
+                        totalSpawns,
+                        CROC_THRESHOLD_START,
+                        CROC_THRESHOLD_END
+                    );
+                    
+                // Adjust heron spawn threshold
+                heronThreshold = calculate_spawn_threshold(
+                        totalSpawns,
+                        HERON_THRESHOLD_START,
+                        HERON_THRESHOLD_END
+                    );
+                
+                Debug.Log(String.Format("Croc Threshold: {0}", crocThreshold));
+                Debug.Log(String.Format("Heron Threshold: {0}", heronThreshold));
+                
+                // Adjust max hazards
                 if (maxHazards < ABSOLUTE_MAX_HAZARDS) {
                     spawnsSinceLastRamp++;
 

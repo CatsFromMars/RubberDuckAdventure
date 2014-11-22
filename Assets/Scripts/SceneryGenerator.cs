@@ -94,7 +94,7 @@ public class SceneryGenerator : MonoBehaviour {
             GameObject scenery = activeScenery[i];
 
             if (scenery.transform.position.x < duckPos - CLEANUP_DIST) {
-                Debug.Log("Cleaning up off-screen scenery...");
+//                Debug.Log("Cleaning up off-screen scenery...");
                 activeScenery.RemoveAt(i);
                 Destroy(scenery);
             }

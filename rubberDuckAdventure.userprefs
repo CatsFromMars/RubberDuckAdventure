@@ -1,17 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HazardGenerator.cs">
     <Files>
       <File FileName="Assets\Scripts\Croc.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="113" Column="1" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerBehavior.cs">
-    <Files>
-      <File FileName="Assets\Scripts\PlayerBehavior.cs" Line="72" Column="13" />
-      <File FileName="Assets\Scripts\HeronScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CameraFollow.cs" Line="1" Column="1" />
->>>>>>> f2f797573ffb60deb49e2eb03e5a5817216855a9
+      <File FileName="Assets\Scripts\HazardGenerator.cs" Line="36" Column="5" />
+      <File FileName="Assets\Scripts\SceneryGenerator.cs" Line="110" Column="39" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
