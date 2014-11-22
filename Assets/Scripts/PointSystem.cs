@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class PointSystem : MonoBehaviour {
-        float score;
-        public Transform duck;
-	public PlayerBehavior duckBehavior;
+    float score;
+    public Transform duck;
+	private PlayerBehavior duckBehavior;
         
 	// Use this for initialization
 	void Awake () {

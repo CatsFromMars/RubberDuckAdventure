@@ -9,6 +9,7 @@ public class PlayerBehavior : MonoBehaviour {
     public Vector2 toVel;
     private float minY;
     public float acc;
+    private float accTemp;
     public float gravity;
     private bool goingUp = false;
     private bool onWater = true;
@@ -16,14 +17,17 @@ public class PlayerBehavior : MonoBehaviour {
     public PointSystem pointSystem;
 
     //water control vars
+    public Transform waterEffectSpawnPoint; //SPAWNPOINT FOR WATER GRAPHICS
     public Vector2 idleVel; //(0.5,0)
     public Vector2 whirlpoolVel;
     public Vector2 splashVel;
     public Vector2 waveVel;
     //water graphics:
-    public Transform whirlpool;
-    public Transform splash;
-    public Transform wave;
+    Transform currentWaterPrefab;
+    public Transform whirlpoolPrefab;
+    public Transform splashPrefab;
+    public Transform wavePrefab;
+    Quaternion prefabRot;
 
     //damage vars
 	public int damage_level = 0;
@@ -38,6 +42,7 @@ public class PlayerBehavior : MonoBehaviour {
     public Transform playerFace;
 	public Texture duckFaceNeutral;
 	public Texture duckFaceCrying;
+    public Texture duckFaceClosed;
     public Texture[] duckHealth;
     public Texture[] duckFace;
     public ParticleSystem damageParticles;
@@ -46,8 +51,10 @@ public class PlayerBehavior : MonoBehaviour {
 	/* ----- SETUP ----- */
     void Awake () {
 		duckHealth = new Texture[3] {duckBase, DuckDamageLevel2, DuckDamageLevel3};
-		duckFace = new Texture[2] {duckFaceNeutral,duckFaceCrying};
+		duckFace = new Texture[3] {duckFaceNeutral,duckFaceCrying,duckFaceClosed};
         minY = transform.position.y;
+        accTemp = acc;
+        prefabRot = Quaternion.Euler(-90,0,0);
 	}
 	
 	/* --- MAIN LOOP --- */
@@ -57,16 +64,26 @@ public class PlayerBehavior : MonoBehaviour {
         if (onWater == true && isDead == false) {
             //activate whirlpool when A is pressed
             if (Input.GetKeyDown(KeyCode.A)) {
+                acc = accTemp;
                 curVel = whirlpoolVel;
+                acc = 0;
             }
+
             //activate splash when W is pressed
             else if (Input.GetKeyDown(KeyCode.W) && isDead == false) { 
+                if(currentWaterPrefab != null) Destroy(currentWaterPrefab.gameObject);
+                currentWaterPrefab = Instantiate(splashPrefab,waterEffectSpawnPoint.position,prefabRot) as Transform;
+                currentWaterPrefab.parent = transform;
                 curVel = splashVel;
                 goingUp = true;
                 onWater = false;
             }
             //activate wave when D is pressed
             else if (Input.GetKeyDown(KeyCode.D) && isDead == false) {
+                //SPAWN WATER EFFECT
+                if(currentWaterPrefab != null) Destroy(currentWaterPrefab.gameObject);
+                currentWaterPrefab = Instantiate(wavePrefab,waterEffectSpawnPoint.position,prefabRot) as Transform;
+                currentWaterPrefab.parent = transform;
                 curVel = waveVel;
                 goingUp = true;
                 onWater = false;
@@ -106,7 +123,7 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 
 	//set duck face's texture, 30 frames per second
-	if (shockedFaceFrame == 60) {
+	if (shockedFaceFrame == 60 && isDead == false) {
 		shockedFace = 0;
 		playerFace.renderer.material.mainTexture = duckFace[shockedFace];
 	}
@@ -114,26 +131,33 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 	
     void Die() {
-	isDead = true;
-	curVel.x = 0;
-	idleVel.x = 0;
-	curVel.y = -0.01F;
-	idleVel.y = -0.01F;
+    	isDead = true;
+    	curVel.x = 0;
+    	idleVel.x = 0;
+    	curVel.y = -0.01F;
+    	idleVel.y = -0.01F;
+        int deadFace = 2;
+        playerFace.renderer.material.mainTexture = duckFace[deadFace];
     }
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Enemy") {
+
             damage_level += 1;
-	    shockedFaceFrame = 0;
-	    shockedFace = 1;
-	    playerFace.renderer.material.mainTexture = duckFace[shockedFace];
+
+	        shockedFaceFrame = 0;
+	        shockedFace = 1;
+	        playerFace.renderer.material.mainTexture = duckFace[shockedFace];
             damageParticles.Play();
             if (damage_level >= 3) {
                 Debug.Log("Player should be dead by now.");
-		Die();
-                damage_level %= 3;  // TODO: Get rid of this
+
+		        Die();
+
             }
-            playerBase.renderer.material.mainTexture = duckHealth[damage_level];
-            //          Debug.Log("FUNCTION CALLED");
+            if (damage_level < 3)
+            {
+                playerBase.renderer.material.mainTexture = duckHealth[damage_level];
+            }
         }
     }
 

@@ -10,8 +10,11 @@ public class SceneryGenerator : MonoBehaviour {
 
     private const int MAX_Z_VARIANCE = 5;
     private const int MAX_Y_VARIANCE = 5;
-
+    
     public Transform Cloud;
+    public Transform CloudSm;
+    public Transform CloudMed;
+    public Transform CloudLg;
 
     private GameObject duck;
 
@@ -37,10 +40,28 @@ public class SceneryGenerator : MonoBehaviour {
             );
     }
 
-    /* Spawn some scenery. Ahhhh... */
-    void spawn_scenery() {
-        Debug.Log("Spawning new scenery...");
+    /* Choose a scenery object to spawn */
+    private Transform choose_scenery() {
+        float n = UnityEngine.Random.Range(0, 100);
 
+        if (n < 25.0f) {
+            return CloudSm;
+        }
+        else if (n < 50.0f) {
+            return CloudMed;
+        }
+        else if (n < 75.0f) {
+            return CloudLg;
+        }
+        else {
+            return Cloud;
+        }
+
+    }
+
+
+    /* Spawn some scenery. Ahhhh... */
+    private void spawn_scenery() {
         float distFromDuck;
 
         Transform newSceneryTransform;
@@ -48,12 +69,14 @@ public class SceneryGenerator : MonoBehaviour {
 
         distFromDuck = UnityEngine.Random.Range(MIN_SPAWN_DIST, MAX_SPAWN_DIST);
 
+        Transform CloudType = choose_scenery();
+
         newSceneryTransform = (Transform) Instantiate(
-                Cloud,
+                CloudType,
                 new_random_coords(get_duck_pos() + distFromDuck),
                 BASE_ROTATION
             );
-
+            
         newScenery = newSceneryTransform.gameObject;
 
         activeScenery.Add(newScenery);
@@ -64,7 +87,7 @@ public class SceneryGenerator : MonoBehaviour {
     }
 
     /* Be a good citizen and clean up when you're finished. */
-    void clean_up_scenery() {
+    private void clean_up_scenery() {
         float duckPos = get_duck_pos();
 
         for (int i=0; i<activeScenery.Count; i++) {
