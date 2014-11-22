@@ -48,6 +48,9 @@ public class PlayerBehavior : MonoBehaviour {
     public ParticleSystem damageParticles;
     public ParticleSystem waterParticles;
 
+    //DUCK ACTION VARIABLES
+    private bool isDoingSomething = false;
+
 	/* ----- SETUP ----- */
     void Awake () {
 		duckHealth = new Texture[3] {duckBase, DuckDamageLevel2, DuckDamageLevel3};
@@ -59,18 +62,29 @@ public class PlayerBehavior : MonoBehaviour {
 	
 	/* --- MAIN LOOP --- */
     void Update () {
+
+//        Debug.Log(isDoingSomething);
+
+        //PLAYER CAN'T MAKE ANOTHER MOVE UNTIL KEY IS UP
+        if(!Input.GetKeyDown(KeyCode.W) && !Input.GetKeyDown(KeyCode.D) 
+           && !Input.GetKeyDown(KeyCode.A)) {
+            isDoingSomething = false;
+            acc = accTemp;
+        }
 		
         /* --- water controls --- */
-        if (onWater == true && isDead == false) {
+        if (onWater == true && isDead == false && !isDoingSomething) {
             //activate whirlpool when A is pressed
             if (Input.GetKeyDown(KeyCode.A)) {
-                acc = accTemp;
-                curVel = whirlpoolVel;
+                isDoingSomething = true;
+                accTemp = acc;
                 acc = 0;
+                curVel = whirlpoolVel;
             }
 
             //activate splash when W is pressed
             else if (Input.GetKeyDown(KeyCode.W) && isDead == false) { 
+                isDoingSomething = true;
                 if(currentWaterPrefab != null) Destroy(currentWaterPrefab.gameObject);
                 currentWaterPrefab = Instantiate(splashPrefab,waterEffectSpawnPoint.position,prefabRot) as Transform;
                 currentWaterPrefab.parent = transform;
@@ -80,6 +94,7 @@ public class PlayerBehavior : MonoBehaviour {
             }
             //activate wave when D is pressed
             else if (Input.GetKeyDown(KeyCode.D) && isDead == false) {
+                isDoingSomething = true;
                 //SPAWN WATER EFFECT
                 if(currentWaterPrefab != null) Destroy(currentWaterPrefab.gameObject);
                 currentWaterPrefab = Instantiate(wavePrefab,waterEffectSpawnPoint.position,prefabRot) as Transform;
