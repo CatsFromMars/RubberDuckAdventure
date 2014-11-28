@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\Croc.cs" />
      <Compile Include="Assets\Scripts\CrocJaw.cs" />
+     <Compile Include="Assets\Scripts\DayNightCycle.cs" />
      <Compile Include="Assets\Scripts\Float.cs" />
      <Compile Include="Assets\Scripts\GameOverMenu.cs" />
      <Compile Include="Assets\Scripts\HazardGenerator.cs" />

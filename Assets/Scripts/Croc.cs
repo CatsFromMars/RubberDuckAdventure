@@ -59,6 +59,7 @@ public class Croc : MonoBehaviour {
 	{
         switch (state) {
             case CrocState.LURKING:
+                audio.Play();
                 if (get_duck_pos() > transform.position.x - CHARGE_DIST) {
                     state = CrocState.RISING;
                 }

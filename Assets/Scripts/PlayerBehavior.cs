@@ -52,6 +52,11 @@ public class PlayerBehavior : MonoBehaviour {
     //DUCK ACTION VARIABLES
     private bool isDoingSomething = false;
 
+    //SOUND EFFECTS VARS
+    public AudioClip waveSound;
+    public AudioClip splashSound;
+    public AudioClip hitSound;
+
 	/* ----- SETUP ----- */
     void Awake () {
 		duckHealth = new Texture[3] {duckBase, DuckDamageLevel2, DuckDamageLevel3};
@@ -86,6 +91,7 @@ public class PlayerBehavior : MonoBehaviour {
             //activate splash when W is pressed
             else if (Input.GetKeyDown(KeyCode.W) && isDead == false) { 
                 isDoingSomething = true;
+                makeSound(splashSound);
                 if(currentWaterPrefab != null) Destroy(currentWaterPrefab.gameObject);
                 currentWaterPrefab = Instantiate(splashPrefab,waterEffectSpawnPoint.position,prefabRot) as Transform;
                 currentWaterPrefab.parent = transform;
@@ -96,6 +102,7 @@ public class PlayerBehavior : MonoBehaviour {
             //activate wave when D is pressed
             else if (Input.GetKeyDown(KeyCode.D) && isDead == false) {
                 isDoingSomething = true;
+                makeSound(waveSound);
                 //SPAWN WATER EFFECT
                 if(currentWaterPrefab != null) Destroy(currentWaterPrefab.gameObject);
                 currentWaterPrefab = Instantiate(wavePrefab,waterEffectSpawnPoint.position,prefabRot) as Transform;
@@ -157,7 +164,7 @@ public class PlayerBehavior : MonoBehaviour {
     }
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Enemy") {
-
+            makeSound(hitSound);
             damage_level += 1;
 
 	        shockedFaceFrame = 0;
@@ -175,6 +182,13 @@ public class PlayerBehavior : MonoBehaviour {
                 playerBase.renderer.material.mainTexture = duckHealth[damage_level];
             }
         }
+    }
+
+    public void makeSound(AudioClip clip) {
+        // FOR ALL THINGS THAT NEED SOUND
+        audio.clip = clip;
+        audio.Play();
+        
     }
 
 }

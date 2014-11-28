@@ -2,7 +2,25 @@ fileFormatVersion: 2
 guid: 1f2de920a9521eb418a0e48e773ff124
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pointSystem: {instanceID: 0}
+  - waterEffectSpawnPoint: {instanceID: 0}
+  - whirlpoolPrefab: {instanceID: 0}
+  - splashPrefab: {instanceID: 0}
+  - wavePrefab: {instanceID: 0}
+  - playerBase: {instanceID: 0}
+  - duckBase: {instanceID: 0}
+  - DuckDamageLevel2: {instanceID: 0}
+  - DuckDamageLevel3: {instanceID: 0}
+  - playerFace: {instanceID: 0}
+  - duckFaceNeutral: {instanceID: 0}
+  - duckFaceCrying: {instanceID: 0}
+  - duckFaceClosed: {instanceID: 0}
+  - damageParticles: {instanceID: 0}
+  - waterParticles: {instanceID: 0}
+  - waveSound: {fileID: 8300000, guid: 2097114b04234824e995d7a480d20d45, type: 3}
+  - splashSound: {fileID: 8300000, guid: 80f5d004466935e48b076beca8913097, type: 3}
+  - hitSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
