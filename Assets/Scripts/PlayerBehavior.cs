@@ -14,7 +14,7 @@ public class PlayerBehavior : MonoBehaviour {
     private bool goingUp = false;
     private bool onWater = true;
     public bool isDead = false;
-    private float minOffset = 0.5f;
+    private float minOffset = 0.2f;
     public PointSystem pointSystem;
 
     //water control vars
@@ -125,6 +125,14 @@ public class PlayerBehavior : MonoBehaviour {
             }
         //now going down:
         } else {
+            //SNAP TO
+            if((minY - transform.position.y) >= minOffset && !isDead) 
+            {   
+                Vector3 newPlayerPosition = new Vector3 (transform.position.x, minY, transform.position.z);
+                transform.position = newPlayerPosition;
+            }
+
+            //MOVE DOWN
             if (transform.position.y > minY) {
                 curVel.y -= Time.deltaTime*gravity;
             } else { 

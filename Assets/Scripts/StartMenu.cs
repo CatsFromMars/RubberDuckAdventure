@@ -18,7 +18,7 @@ public class StartMenu : MonoBehaviour {
 	// Update is called once per frame
 	void OnGUI () {
 		if (visible) {
-			GUILayout.BeginArea (new Rect((width - boxWidth) / 2, (height + boxHeight) / 2, boxWidth, boxHeight));
+			GUILayout.BeginArea (new Rect((width - boxWidth) / 2, (height + boxHeight) / 2.5f, boxWidth, boxHeight));
 			GUILayout.BeginVertical ();
 			if (GUILayout.Button ("Play")) {
 				Application.LoadLevel("Test");
