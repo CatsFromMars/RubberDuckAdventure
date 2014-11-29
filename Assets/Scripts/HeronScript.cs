@@ -18,6 +18,9 @@ public class HeronScript : MonoBehaviour {
     public bool goingDown = false;
     private bool peak = false;
     public int frame; // Ranges from 0-9
+    //Heron sounds
+    public AudioClip heronChirp;
+    public AudioClip heronDip;
 
     /* ----- SETUP ----- */
     void Start () {
@@ -27,7 +30,13 @@ public class HeronScript : MonoBehaviour {
    
     /* --- MAIN LOOP --- */
 	void Update () {
-	  
+	if(frame == 1) {
+	    makeSound(heronChirp);
+	}
+	else if(frame == 6) {
+	    makeSound(heronDip);
+	}
+	
         //alternating between 0 - 9
         if(animTimer <= 0 && peak == false) {
             //if the heron is going down:
@@ -83,6 +92,11 @@ public class HeronScript : MonoBehaviour {
         else { collider.enabled = false; }
 
 	}
+    public void makeSound(AudioClip clip) {
+        // FOR ALL THINGS THAT NEED SOUND
+        audio.clip = clip;
+        audio.Play();
+    }
 
 }
 
